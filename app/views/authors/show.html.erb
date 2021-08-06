@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h3> <%= @author.name %></h3>
+<% @count.each do |count| %>
+      <h3> Total books: <%= count.books_count %></h3>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Library name</th>
+      <th>Published_at</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @author.each do |book| %>
+      <tr>
+        <td><%= book.title  %></td>
+        <td><%= book.name %></td>
+        <td><%= book.published_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_author_path(@author) %> |
+<%= link_to 'Back', authors_path %>

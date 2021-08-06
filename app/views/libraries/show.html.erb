@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+<h2> <%= @single_library.name %></h2>
+<% @count.each do |count| %>
+      <h3> Total books: <%= count.books_count %></h3>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author Name</th>
+      <th>Published_at</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @library.each do |book| %>
+      <tr>
+        <td><%= book.title  %></td>
+        <td><%= book.name %></td>
+        <td><%= book.published_at %></td>
+        <td>
+          <%= form_with url: '/books/'"#{ book.id }", method: :patch do |form| %>
+          <%= hidden_field(:book, :library_id, :value => "" ) %>
+          <%= form.submit "Un assign", data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <th colspan="4">Un-Assigned books list</th>
+    </tr>
+    <!--<tr>
+    <td>Choose a book to assign</td>
+    <td>
+      <form action="/books/id" method="post" class="nifty_form">
+        <%= select_tag 'book_id', options_for_select(@unassinged_books.collect{ |book| [book.title, book.id] }) %>
+        <input name="commit" type="submit" value="Assign" />
+      </form>
+    </td>
+
+  </tr>-->
+  <% @unassinged_books.each do |book| %>
+      <tr>
+        <td>
+        <%= book.title%>
+        </td>
+        <td>
+          <%= form_with url: '/books/'"#{ book.id }", method: :patch do |form| %>
+          <%= hidden_field(:book, :library_id, :value => @single_library.id ) %>
+          <%= form.submit "Assign book" %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_library_path(@single_library) %> |
+<%= link_to 'Back', libraries_path %>

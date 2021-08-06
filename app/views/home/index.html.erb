@@ -1,0 +1,11 @@
+<h1>Home Page</h1>
+<% if user_signed_in? %>
+    <% if current_user.admin %>
+        <%= link_to 'Libraries', libraries_path %>
+        <%= link_to 'Books', books_path %>
+        <%= link_to 'Authors', authors_path %>
+    <% else %>
+        <%= link_to 'Books', books_path %>
+    <% end %>
+
+<%end%>
